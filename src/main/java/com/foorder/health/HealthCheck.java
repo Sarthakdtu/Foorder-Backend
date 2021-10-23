@@ -11,7 +11,7 @@ import java.util.HashMap;
 @RequestMapping("api/health")
 public class HealthCheck {
 
-    @GetMapping("/")
+    @GetMapping("")
     public Object getHealth(){
         HashMap<String, Boolean> result = new HashMap<>();
         result.put("alive", true);
