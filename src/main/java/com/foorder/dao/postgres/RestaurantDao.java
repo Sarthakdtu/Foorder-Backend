@@ -1,10 +1,10 @@
-package com.foorder.service;
+package com.foorder.dao.postgres;
 
 import com.foorder.model.Restaurant;
 
 import java.util.List;
 
-public interface RestaurantService {
+public interface RestaurantDao {
     public Restaurant getRestaurantById(String id);
     public void insertRestaurant(Restaurant restaurant);
     public void deleteRestaurant(String id);

@@ -1,6 +1,5 @@
 package com.foorder.controller.v1.api;
 
-import com.foorder.model.Menu;
 import com.foorder.model.MenuItem;
 import com.foorder.service.MenuService;
 import com.foorder.utils.LoggerService;
@@ -25,19 +24,8 @@ public class MenuController {
         return result;
     }
 
-    @GetMapping("/get-menu")
-    public Menu getMenuByRestaurantId(@RequestParam String restaurantId){
-        Menu menu = null;
-        try{
-            menu = menuService.getMenuByRestaurantId(restaurantId);
-        }
-        catch (Exception e){
-            LoggerService.error(e.getMessage());
-        }
-        return menu;
-    }
 
-    @GetMapping("/get-menu-items")
+    @GetMapping("/get")
     public List<MenuItem> getMenuItems(@RequestParam String restaurantId){
         List<MenuItem> items = null;
         try{
@@ -50,14 +38,12 @@ public class MenuController {
     }
 
     @PostMapping("/add-items")
-    public boolean addMenuItems(@RequestBody HashMap<String, String> req) throws SQLException {
+    public boolean addMenuItems(@RequestBody HashMap<String, Object> req) throws SQLException {
         boolean insert = false;
         try{
-            String restaurantId = req.get("restaurantId");
-//            List<MenuItem> items = req.get("items");
-            System.out.println(req.get("items"));
-            Menu menu = new Menu(restaurantId);
-            menuService.insertMenu(menu);
+            String restaurantId = (String) req.get("restaurantId");
+            List<MenuItem> items = (List<MenuItem>) req.get("items");
+            menuService.addItems(restaurantId, items);
             insert = true;
         }
         catch (Exception e){
@@ -66,19 +52,4 @@ public class MenuController {
         }
         return insert;
     }
-
-    @PutMapping("/edit")
-    public boolean editMenu(@RequestBody HashMap<String, String> req){
-        String restaurantId = req.get("restaurantId");
-        boolean edit = false;
-        try{
-            menuService.editMenu(restaurantId);
-            edit = true;
-        }
-        catch (Exception e){
-            LoggerService.error(e.getMessage());
-        }
-        return edit;
-    }
-
 }

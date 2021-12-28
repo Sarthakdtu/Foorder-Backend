@@ -1,6 +1,6 @@
-package com.foorder.dao.impl.postgres;
+package com.foorder.dao.postgres.impl;
 
-import com.foorder.dao.CityDao;
+import com.foorder.dao.postgres.CityDao;
 import com.foorder.mapper.CityMapper;
 import com.foorder.model.City;
 import com.foorder.utils.LoggerService;

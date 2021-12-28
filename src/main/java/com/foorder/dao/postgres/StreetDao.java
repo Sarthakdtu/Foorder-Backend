@@ -1,4 +1,4 @@
-package com.foorder.dao;
+package com.foorder.dao.postgres;
 
 import com.foorder.model.Street;
 

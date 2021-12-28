@@ -1,5 +1,7 @@
 package com.foorder.service.impl;
 
+import com.foorder.dao.postgres.RestaurantDao;
+import com.foorder.model.Menu;
 import com.foorder.model.MenuItem;
 import com.foorder.model.Restaurant;
 import com.foorder.service.MenuService;
@@ -15,13 +17,20 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Autowired
     MenuService menuService;
 
+    @Autowired
+    RestaurantDao restaurantDao;
+
     @Override
     public Restaurant getRestaurantById(String id) {
         return null;
     }
 
     @Override
-    public void insertRestaurant(Restaurant restaurant) {}
+    public void insertRestaurant(Restaurant restaurant) {
+        Menu menu = new Menu(restaurant.getId());
+        menuService.insertMenu(menu);
+        restaurantDao.insertRestaurant(restaurant);
+    }
 
     @Override
     public void deleteRestaurant(String id) {}

@@ -1,6 +1,6 @@
-package com.foorder.dao.impl.postgres;
+package com.foorder.dao.postgres.impl;
 
-import com.foorder.dao.UserProfileDao;
+import com.foorder.dao.postgres.UserProfileDao;
 import com.foorder.model.City;
 import com.foorder.model.Street;
 import com.foorder.model.UserProfile;

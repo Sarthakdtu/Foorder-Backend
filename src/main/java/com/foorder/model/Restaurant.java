@@ -7,7 +7,6 @@ public class Restaurant {
 
     @Getter private final String id;
     @Getter private final String name;
-    @Getter @Setter private String menuId;
     @Getter private final String streetName;
     @Getter private final String cityName;
 
@@ -16,5 +15,15 @@ public class Restaurant {
         this.name = name;
         this.streetName = streetName;
         this.cityName = cityName;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", streetName='" + streetName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
-package com.foorder.dao.impl.postgres;
+package com.foorder.dao.postgres.impl;
 
-import com.foorder.dao.StreetDao;
+import com.foorder.dao.postgres.StreetDao;
 import com.foorder.mapper.StreetMapper;
 import com.foorder.model.Street;
 import com.foorder.utils.LoggerService;
