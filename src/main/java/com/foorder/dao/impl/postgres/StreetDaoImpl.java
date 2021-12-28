@@ -1,9 +1,7 @@
-package com.foorder.dao.impl;
+package com.foorder.dao.impl.postgres;
 
 import com.foorder.dao.StreetDao;
-import com.foorder.mapper.CityMapper;
 import com.foorder.mapper.StreetMapper;
-import com.foorder.model.City;
 import com.foorder.model.Street;
 import com.foorder.utils.LoggerService;
 import org.springframework.dao.DataAccessException;

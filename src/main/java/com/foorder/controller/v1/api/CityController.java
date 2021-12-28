@@ -38,7 +38,7 @@ public class CityController {
     }
 
     @GetMapping("/get-all")
-    public List<City> getTopNUserProfiles() throws SQLException, JSONException {
+    public List<City> getAllCities() throws SQLException, JSONException {
         List<City> cities = null;
         try{
             cities = cityService.getAllCities();

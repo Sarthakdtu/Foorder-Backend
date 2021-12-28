@@ -1,13 +1,16 @@
 package com.foorder.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class UserProfile {
-    private final String username;
+    @Getter private final String username;
 
-    private String houseNumber;
+    @Getter @Setter private String houseNumber;
 
-    private String cityId;
+    @Getter @Setter private String cityId;
 
-    private String streetId;
+    @Getter @Setter private String streetId;
 
     public UserProfile(String username){
         this.username = username;
@@ -18,33 +21,5 @@ public class UserProfile {
         this.houseNumber = houseNumber;
         this.cityId = cityId;
         this.streetId = streetId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
-
-    public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public void setStreetId(String streetId) {
-        this.streetId = streetId;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    public String getStreetId() {
-        return streetId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
     }
 }

@@ -1,4 +1,4 @@
-package com.foorder.dao.impl;
+package com.foorder.dao.impl.postgres;
 
 import com.foorder.dao.CityDao;
 import com.foorder.mapper.CityMapper;
