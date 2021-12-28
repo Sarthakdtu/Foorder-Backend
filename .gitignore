@@ -1,4 +1,5 @@
 .idea
-target/*
-target
-resources/application.properties
+.classpath
+.project
+.settings/
+target/
