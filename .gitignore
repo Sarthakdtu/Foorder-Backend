@@ -1,4 +1,4 @@
 .idea
 target/*
 target
-application.properties
+resources/application.properties
