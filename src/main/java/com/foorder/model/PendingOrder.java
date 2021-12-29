@@ -8,10 +8,10 @@ public class PendingOrder extends Order {
 
     public PendingOrder(String id,
                           String username,
-                          String restaurantName,
+                          String restaurantId,
                           LocalDateTime orderTime,
                           String orderedItemsId,
                           String price) {
-        super(id, username, restaurantName, orderTime, orderedItemsId, price);
+        super(id, username, restaurantId, orderTime, orderedItemsId, price);
     }
 }

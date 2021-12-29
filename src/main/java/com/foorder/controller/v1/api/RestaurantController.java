@@ -53,22 +53,21 @@ public class RestaurantController {
     }
 
     @PostMapping("/create")
-    public boolean createRestaurant(@RequestBody HashMap<String, String> req) throws SQLException {
-        boolean insert = false;
+    public String createRestaurant(@RequestBody HashMap<String, String> req) throws SQLException {
+
+        String id = RandomStrings.generateRestaurantId();
         try{
             String name = req.get("name");
-            String id = RandomStrings.generateRestaurantId();
             String streetName = req.get("streetName");
             String cityName = req.get("cityName");
             Restaurant restaurant = new Restaurant(id, name, streetName, cityName);
             restaurantService.insertRestaurant(restaurant);
-            insert = true;
         }
         catch (Exception e){
             LoggerService.error(e.getMessage());
             e.printStackTrace();
         }
-        return insert;
+        return id;
     }
 
     @DeleteMapping("/delete")

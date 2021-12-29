@@ -1,20 +1,22 @@
 package com.foorder.model;
 
 import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 public class DeliveredOrder extends Order {
 
     @Getter private final LocalDateTime deliverTime;
-    @Getter private final String deliveryId;
+    @Getter @Setter private String deliveryId;
     public DeliveredOrder(String id,
                           String username,
-                          String restaurantName,
+                          String restaurantId,
                           LocalDateTime orderTime,
                           String orderedItemsId,
                           String price,
                           LocalDateTime deliverTime, String deliveryId) {
-        super(id, username, restaurantName, orderTime, orderedItemsId, price);
+        super(id, username, restaurantId, orderTime, orderedItemsId, price);
         this.deliverTime = deliverTime;
         this.deliveryId = deliveryId;
     }
@@ -22,7 +24,7 @@ public class DeliveredOrder extends Order {
     public DeliveredOrder(PendingOrder order, LocalDateTime deliverTime, String deliveryId){
         super(order.getId(),
                 order.getUsername(),
-                order.getRestaurantName(),
+                order.getRestaurantId(),
                 order.getOrderTime(),
                 order.getOrderedItemsId(),
                 order.getPrice());

@@ -8,18 +8,18 @@ public class UserProfile {
 
     @Getter @Setter private String houseNumber;
 
-    @Getter @Setter private String cityId;
+    @Getter @Setter private String cityName;
 
-    @Getter @Setter private String streetId;
+    @Getter @Setter private String streetName;
 
     public UserProfile(String username){
         this.username = username;
     }
 
-    public UserProfile(String username, String houseNumber, String cityId, String streetId) {
+    public UserProfile(String username, String houseNumber, String cityName, String streetName) {
         this.username = username;
         this.houseNumber = houseNumber;
-        this.cityId = cityId;
-        this.streetId = streetId;
+        this.cityName = cityName;
+        this.streetName = streetName;
     }
 }

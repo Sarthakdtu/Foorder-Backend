@@ -39,6 +39,13 @@ public class RandomStrings {
         return rangeMin + (rangeMax - rangeMin) * r.nextDouble();
     }
 
+    public static Long getRandomLong(){
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        // this will convert any number sequence into 6 character.
+        return Long.parseLong(String.format("%06d", number));
+    }
+
     public static String getRandomUserName(){
         int len = 7;
         StringBuilder sb = new StringBuilder("U").append(getRandomString(len));
@@ -55,5 +62,9 @@ public class RandomStrings {
         int len = 7;
         StringBuilder sb = new StringBuilder("R").append(getRandomString(len));
         return sb.toString();
+    }
+
+    public static Long generatePincode(){
+        return getRandomLong();
     }
 }

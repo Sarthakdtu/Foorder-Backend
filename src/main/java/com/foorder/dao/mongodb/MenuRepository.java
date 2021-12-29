@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.Query;
 
 public interface MenuRepository extends MongoRepository<Menu, String> {
 
-    @Query("{restaurantId:'?0'}")
+    @Query("{_id:'?0'}")
     Menu findMenuByRestaurantId(String restaurantId);
 
     public long count();

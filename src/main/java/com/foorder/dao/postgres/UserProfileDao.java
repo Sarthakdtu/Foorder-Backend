@@ -11,9 +11,9 @@ public interface UserProfileDao {
 
     public UserProfile getUserProfileById(String userId);
 
-    public List<UserProfile> getUserProfilesByCity(City city);
+    public List<UserProfile> getUserProfilesByCity(String cityName);
 
-    public List<UserProfile> getUserProfilesByStreet(Street street);
+    public List<UserProfile> getUserProfilesByStreet(String streetName, String cityName);
 
     public void insertUserProfile(UserProfile userProfile);
 

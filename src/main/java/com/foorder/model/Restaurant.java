@@ -1,7 +1,6 @@
 package com.foorder.model;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class Restaurant {
 

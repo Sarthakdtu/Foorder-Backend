@@ -1,7 +1,5 @@
 package com.foorder.mapper;
 
-import com.foorder.model.City;
-import com.foorder.model.Street;
 import com.foorder.model.UserProfile;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
@@ -14,8 +12,8 @@ public class UserProfileMapper implements RowMapper {
         String username = resultSet.getString("username");
         UserProfile userProfile = new UserProfile(username);
         userProfile.setHouseNumber(resultSet.getString("houseNumber"));
-        userProfile.setCityId(resultSet.getString("cityId"));
-        userProfile.setStreetId(resultSet.getString("streetId"));
+        userProfile.setCityName(resultSet.getString("cityName"));
+        userProfile.setStreetName(resultSet.getString("streetName"));
         return userProfile;
     }
 }

@@ -12,24 +12,23 @@ import java.util.List;
 public class Menu {
 
     @Id
-    @Getter private String id;
-    @Getter private String restaurantId;
+    @Getter private final String rId; //restaurantId
     @Getter @Setter private List<MenuItem> items;
 
     @PersistenceConstructor
-    public Menu(String restaurantId){
-        this.restaurantId = restaurantId;
+    public Menu(String rId){
+        this.rId = rId;
     }
 
     public Menu(String restaurantId, List<MenuItem> items) {
-        this.restaurantId = restaurantId;
+        this.rId = restaurantId;
         this.items = null;
     }
 
     @Override
     public String toString() {
         return "Menu{" +
-                "restaurantId='" + restaurantId + '\'' +
+                "restaurantId='" + rId + '\'' +
                 ", items=" + items +
                 '}';
     }

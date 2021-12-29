@@ -55,7 +55,6 @@ class CityControllerTest {
         //        Mockito.when(mapper.mapToEntity(Mockito.any(CustomerDto.class))).thenReturn(customer);
         HashMap<String, String> city = new HashMap<>();
         city.put("name", "RandomCity");
-        System.out.println(asJsonString(city));
         String actualResult = mvc
                 .perform(MockMvcRequestBuilders.get(uri).param("name", "Delhi"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse().getContentAsString();

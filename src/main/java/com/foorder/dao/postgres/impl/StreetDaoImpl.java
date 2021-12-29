@@ -48,7 +48,7 @@ public class StreetDaoImpl implements StreetDao {
     @Override
     public void insertStreet(Street street) {
         final String query = "INSERT INTO STREET(name, cityName, pincode) " +
-                "VALUES(:name, :cityName, :pincode)";
+                "VALUES(:name, :cityName, :pincode) ON CONFLICT DO NOTHING";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("name", street.getName())
