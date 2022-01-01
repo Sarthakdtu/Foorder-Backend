@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface OrderService {
+
     Order getOrderById(String id);
+    OrderWithName getOrderDetailsById(String id);
     void insertPendingOrder(PendingOrder order, List<OrderItem> items) throws Exception;
     void deletePendingOrder(String orderId);
     void insertDeliveredOrder(Order order);

@@ -4,18 +4,15 @@ import com.foorder.dao.postgres.DeliveredOrderDao;
 import com.foorder.dao.postgres.PendingOrderDao;
 import com.foorder.exceptions.*;
 import com.foorder.model.*;
-import com.foorder.service.MenuService;
-import com.foorder.service.OrderService;
-import com.foorder.service.RestaurantService;
-import com.foorder.service.UserProfileService;
-import org.apache.tomcat.jni.Local;
+import com.foorder.service.*;
+import com.foorder.utils.LoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -35,6 +32,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     MenuService menuService;
 
+    @Autowired
+    OrderListService orderListService;
+
     private void validateCity(String userCity, String restaurantCity) throws DifferentCityException {
         if(!userCity.equals(restaurantCity)){
             throw new DifferentCityException();
@@ -48,8 +48,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void validateItemExistence(List<OrderItem> items, String restaurantId, HashMap<String, Integer> idTtmMap) throws OrderItemDoesNotExistException {
+        LoggerService.info(String.valueOf(idTtmMap));
         for (OrderItem item: items) {
             if(idTtmMap.getOrDefault(item.getId(), 0) == 0){
+                LoggerService.error("ItemId : " +item.getId());
                 throw new OrderItemDoesNotExistException();
             }
         }
@@ -74,10 +76,30 @@ public class OrderServiceImpl implements OrderService {
         return restaurant.getCityName();
     }
 
-
     @Override
     public Order getOrderById(String id) {
-        return null;
+        return pendingOrderDao.getOrderById(id);
+    }
+
+    @Override
+    public OrderWithName getOrderDetailsById(String id) {
+        Order order = pendingOrderDao.getOrderById(id);
+
+        String restaurantName = restaurantService.getRestaurantById(order.getRestaurantId()).getName();
+        List<MenuItem> menuItems = menuService.getMenuItems(order.getRestaurantId());
+        HashMap<String, String> idNameMap = this.getMenuItemIdNamemMap(menuItems);
+        LoggerService.info("Menu for restaurantId " + order.getRestaurantId() + " fetched");
+
+        OrderList orderList = orderListService.getOrderListById(order.getId());
+        List<OrderItem> orderItems = orderList.getItems();
+        LoggerService.info("Got order items for id " + order.getId());
+
+        List<OrderItemWithName> orderItemWithNameList = new ArrayList<>();
+        for(OrderItem item : orderItems){
+            OrderItemWithName orderItemWithName = new OrderItemWithName(item, idNameMap.get(item.getId()));
+            orderItemWithNameList.add(orderItemWithName);
+        }
+        return new OrderWithName(order, restaurantName, orderItemWithNameList);
     }
 
     private HashMap<String, Integer> getMenuItemIdTtmMap(List<MenuItem> menuItems) throws MenuDoestNotExistException {
@@ -91,28 +113,68 @@ public class OrderServiceImpl implements OrderService {
         return idTtmMap;
     }
 
-
-    private LocalDateTime getTimeToPrepare(LocalDateTime currentTime, HashMap<String, Integer> idTtmMap){
-        Integer timeToPrepare = 0;
-        for(Map.Entry<String, Integer> entry : idTtmMap.entrySet()){
-            timeToPrepare += entry.getValue();
+    private LocalDateTime getTimeToPrepare(LocalDateTime currentTime, HashMap<String, Integer> idTtmMap, List<OrderItem> items){
+        int timeToPrepare = 0;
+        for(OrderItem item : items){
+            timeToPrepare += (item.getQuantity()*idTtmMap.get(item.getId()));
         }
         return currentTime.plusSeconds(timeToPrepare);
+    }
+
+    private void createOrderList(String orderId, List<OrderItem> items){
+        OrderList orderList = new OrderList(orderId, items);
+        orderListService.insertOrderList(orderList);
+    }
+
+    private HashMap<String, Double> getMenuItemIdPricemMap(List<MenuItem> menuItems) {
+        HashMap<String, Double> idPriceMap = new HashMap<>();
+        for (MenuItem item: menuItems) {
+            idPriceMap.put(item.getId(), item.getPrice());
+        }
+        return idPriceMap;
+    }
+
+    private HashMap<String, String> getMenuItemIdNamemMap(List<MenuItem> menuItems) {
+        HashMap<String, String> idNameMap = new HashMap<>();
+        for (MenuItem item: menuItems) {
+            idNameMap.put(item.getId(), item.getName());
+        }
+        return idNameMap;
+    }
+
+    private Double calculateOrderPrice(HashMap<String, Double> idPriceMap, List<OrderItem> items){
+        double price = 0;
+        for(OrderItem item : items){
+            price += (item.getQuantity()*idPriceMap.get(item.getId()));
+        }
+        return price;
     }
 
     @Override
     public void insertPendingOrder(PendingOrder order, List<OrderItem> items) throws Exception {
         List<MenuItem> menuItems = menuService.getMenuItems(order.getRestaurantId());
         HashMap<String, Integer> idTtmMap = this.getMenuItemIdTtmMap(menuItems);
+        HashMap<String, Double> idPriceMap = this.getMenuItemIdPricemMap(menuItems);
+
         String cityName = this.validateOrder(order, items, idTtmMap);
+        LoggerService.info("Validation successful");
+
         LocalDateTime currentTime = LocalDateTime.now();
-        LocalDateTime pickUpTime = this.getTimeToPrepare(currentTime, idTtmMap);
+        LocalDateTime pickUpTime = this.getTimeToPrepare(currentTime, idTtmMap, items);
+        Double price = calculateOrderPrice(idPriceMap, items);
+        LoggerService.info("Order created at " + currentTime.toString() + " and will be picked up at " + pickUpTime.toString());
+
         order.setOrderTime(currentTime);
-        order.setPickupTime(pickUpTime);
+        order.setPickUpTime(pickUpTime);
+        order.setPrice(price);
+        this.createOrderList(order.getId(), items);
+        LoggerService.info("OrderList created for orderId " + order.getId());
 
+        pendingOrderDao.insertPendingOrder(order);
+        LoggerService.info("Order Placed : " + order.toString());
 
-
-
+        //TODO: save order in user_profile history
+        //TODO: save order in restaurant history
     }
 
     @Override

@@ -1,12 +1,13 @@
 package com.foorder.dao.postgres;
 
 import com.foorder.model.Order;
+import com.foorder.model.PendingOrder;
 
 import java.util.List;
 
 public interface PendingOrderDao {
     Order getOrderById(String id);
-    void insertPendingOrder(Order order);
+    void insertPendingOrder(PendingOrder order);
     void deletePendingOrder(String orderId);
     void insertDeliveredOrder(Order order);
     void deleteDeliveredOrder(String orderId);
@@ -14,11 +15,6 @@ public interface PendingOrderDao {
     List<Order> getAllDeliveredOrdersByRestaurantId(String restaurantId);
     List<Order> getOrderHistoryByUser(String username);
     List<Order> getOrderHistoryByRestaurant(String restaurantId);
-    boolean validateOrder(Order order);
-
-
-
     List<Order> getAllPendingOrderByRestaurantId(String restaurantId);
-
     List<Order> getAllPendingOrderByUsername(String username);
 }

@@ -13,10 +13,9 @@ public class DeliveredOrder extends Order {
                           String username,
                           String restaurantId,
                           LocalDateTime orderTime,
-                          String orderedItemsId,
-                          String price,
+                          Double price,
                           LocalDateTime deliverTime, String deliveryId) {
-        super(id, username, restaurantId, orderTime, orderedItemsId, price);
+        super(id, username, restaurantId, orderTime, price);
         this.deliverTime = deliverTime;
         this.deliveryId = deliveryId;
     }
@@ -26,7 +25,6 @@ public class DeliveredOrder extends Order {
                 order.getUsername(),
                 order.getRestaurantId(),
                 order.getOrderTime(),
-                order.getOrderedItemsId(),
                 order.getPrice());
         this.deliverTime = deliverTime;
         this.deliveryId = deliveryId;

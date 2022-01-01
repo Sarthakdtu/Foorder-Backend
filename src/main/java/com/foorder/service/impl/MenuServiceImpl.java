@@ -23,7 +23,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void insertMenu(Menu menu) {
-        menu = menuRepository.save(menu);
+        menuRepository.save(menu);
     }
 
     @Override

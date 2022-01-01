@@ -28,6 +28,19 @@ public class OrderController {
     }
 
     @GetMapping("/get")
+    public Order getOrderDetailsById(@RequestParam String id) throws SQLException, JSONException {
+        Order order = null;
+        try{
+            order = orderService.getOrderDetailsById(id);
+        }
+        catch (Exception e){
+            LoggerService.error(e.getMessage());
+            e.printStackTrace();
+        }
+        return order;
+    }
+
+    @GetMapping("/get-basic")
     public Order getOrderById(@RequestParam String id) throws SQLException, JSONException {
         Order order = null;
         try{
@@ -35,6 +48,7 @@ public class OrderController {
         }
         catch (Exception e){
             LoggerService.error(e.getMessage());
+            e.printStackTrace();
         }
         return order;
     }
@@ -47,6 +61,7 @@ public class OrderController {
         }
         catch (Exception e){
             LoggerService.error(e.getMessage());
+            e.printStackTrace();
         }
         return orders;
     }
@@ -59,6 +74,7 @@ public class OrderController {
         }
         catch (Exception e){
             LoggerService.error(e.getMessage());
+            e.printStackTrace();
         }
         return orders;
     }
