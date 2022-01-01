@@ -64,6 +64,12 @@ public class RandomStrings {
         return sb.toString();
     }
 
+    public static String generateMenuItemId(){
+        int len = 3;
+        StringBuilder sb = new StringBuilder("MI").append(getRandomString(len));
+        return sb.toString();
+    }
+
     public static Long generatePincode(){
         return getRandomLong();
     }

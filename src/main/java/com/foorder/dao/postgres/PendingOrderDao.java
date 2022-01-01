@@ -1,14 +1,12 @@
-package com.foorder.service;
+package com.foorder.dao.postgres;
 
-import com.foorder.exceptions.MenuDoestNotExistException;
-import com.foorder.model.*;
+import com.foorder.model.Order;
 
-import java.util.HashMap;
 import java.util.List;
 
-public interface OrderService {
+public interface PendingOrderDao {
     Order getOrderById(String id);
-    void insertPendingOrder(PendingOrder order, List<OrderItem> items) throws Exception;
+    void insertPendingOrder(Order order);
     void deletePendingOrder(String orderId);
     void insertDeliveredOrder(Order order);
     void deleteDeliveredOrder(String orderId);
@@ -16,7 +14,11 @@ public interface OrderService {
     List<Order> getAllDeliveredOrdersByRestaurantId(String restaurantId);
     List<Order> getOrderHistoryByUser(String username);
     List<Order> getOrderHistoryByRestaurant(String restaurantId);
-    String validateOrder(Order order, List<OrderItem> items, HashMap<String, Integer> idTtmMap) throws Exception;
+    boolean validateOrder(Order order);
+
+
+
     List<Order> getAllPendingOrderByRestaurantId(String restaurantId);
+
     List<Order> getAllPendingOrderByUsername(String username);
 }

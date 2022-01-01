@@ -3,11 +3,11 @@ package com.foorder.model;
 import lombok.Getter;
 
 public class OrderItem {
-    @Getter private final String itemId;
-    @Getter private final String quantity;
+    @Getter private final String id;
+    @Getter private final Integer quantity;
 
-    public OrderItem(String itemId, String quantity) {
-        this.itemId = itemId;
+    public OrderItem(String id, Integer quantity) {
+        this.id = id;
         this.quantity = quantity;
     }
 }

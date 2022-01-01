@@ -40,7 +40,7 @@ CREATE TABLE DELIVERED_ORDERS(
     orderedItemsID VARCHAR(20) NOT NULL,
     orderTime TIMESTAMP NOT NULL,
     deliveryId VARCHAR(20) NOT NULL,
-    deliveryTime TIMESTAMP NOT NULL,
+    deliveryTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     price REAL,
     CONSTRAINT fk_username
         FOREIGN KEY(username)
@@ -56,6 +56,7 @@ CREATE TABLE PENDING_ORDERS(
     restaurantId VARCHAR(16) NOT NULL,
     orderedItemsID VARCHAR(20) NOT NULL,
     orderTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    pickUpTime TIMESTAMP,
     price REAL,
     CONSTRAINT fk_username
         FOREIGN KEY(username)

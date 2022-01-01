@@ -1,12 +1,16 @@
 package com.foorder.controller.v1.api;
 
+import com.foorder.exceptions.DuplicateMenuItemException;
+import com.foorder.exceptions.MenuItemsInvalidException;
 import com.foorder.model.MenuItem;
 import com.foorder.service.MenuService;
 import com.foorder.utils.LoggerService;
+import com.foorder.utils.RandomStrings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,8 +46,28 @@ public class MenuController {
         boolean insert = false;
         try{
             String restaurantId = (String) req.get("restaurantId");
-            List<MenuItem> items = (List<MenuItem>) req.get("items");
-            menuService.addItems(restaurantId, items);
+            List<HashMap<String, Object>> itemList = (List<HashMap<String, Object>>) req.get("items");
+            List<MenuItem> menuItems = new ArrayList<>();
+            HashMap<String, Boolean> coveredItems = new HashMap<>();
+            for (HashMap<String, Object> item : itemList) {
+                if(item.isEmpty() || !item.containsKey("name") || !item.containsKey("price") || !item.containsKey("timeToMake")){
+                    throw new MenuItemsInvalidException();
+                }
+                String name = (String) item.get("name");
+                Double price = (Double) item.get("price");
+                Integer timeToMake = (Integer) item.get("timeToMake");
+
+                if(!coveredItems.getOrDefault(name, false)){
+                    coveredItems.put(name, true);
+                    String id = RandomStrings.generateMenuItemId();
+                    MenuItem tempItem = new MenuItem(id, name, price, timeToMake);
+                    menuItems.add(tempItem);
+                }
+                else{
+                    throw new DuplicateMenuItemException();
+                }
+            }
+            menuService.addItems(restaurantId, menuItems);
             insert = true;
         }
         catch (Exception e){
