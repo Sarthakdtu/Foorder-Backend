@@ -3,7 +3,6 @@ package com.foorder.dao.postgres.impl;
 import com.foorder.constants.Table;
 import com.foorder.dao.postgres.RestaurantDao;
 import com.foorder.mapper.RestaurantMapper;
-import com.foorder.mapper.UserProfileMapper;
 import com.foorder.model.Restaurant;
 import com.foorder.utils.LoggerService;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -64,6 +63,6 @@ public class RestaurantDaoImpl implements RestaurantDao {
         String query = "SELECT * FROM " + Table.RESTAURANT.name +" WHERE cityName='%s' AND streetName='%s'";
         query = String.format(query, cityName, streetName);
         LoggerService.info(query);
-        return (List<Restaurant>) template.query(query, new UserProfileMapper());
+        return (List<Restaurant>) template.query(query, new RestaurantMapper());
     }
 }

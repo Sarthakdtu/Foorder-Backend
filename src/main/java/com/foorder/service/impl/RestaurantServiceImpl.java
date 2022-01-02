@@ -2,7 +2,6 @@ package com.foorder.service.impl;
 
 import com.foorder.dao.postgres.RestaurantDao;
 import com.foorder.model.Menu;
-import com.foorder.model.MenuItem;
 import com.foorder.model.Restaurant;
 import com.foorder.model.Street;
 import com.foorder.service.MenuService;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -46,7 +44,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void deleteRestaurant(String id) {}
+    public void deleteRestaurant(String id) {
+        restaurantDao.deleteRestaurant(id);
+    }
 
     @Override
     public List<Restaurant> getAllRestaurantsByCity(String cityName) {

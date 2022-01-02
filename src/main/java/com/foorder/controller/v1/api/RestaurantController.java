@@ -52,7 +52,18 @@ public class RestaurantController {
         return restaurants;
     }
 
-    @PostMapping("/create")
+    @GetMapping("/get-all-street")
+    public List<Restaurant> getAllRestaurantByStreet(@RequestParam String streetName, @RequestParam String cityName) throws SQLException, JSONException {
+        List<Restaurant> restaurants = null;
+        try {
+            restaurants = restaurantService.getAllRestaurantsByStreet(streetName, cityName);
+        } catch (Exception e) {
+            LoggerService.error(e.getMessage());
+        }
+        return restaurants;
+    }
+
+        @PostMapping("/create")
     public String createRestaurant(@RequestBody HashMap<String, String> req) throws SQLException {
 
         String id = RandomStrings.generateRestaurantId();
