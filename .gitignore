@@ -4,4 +4,4 @@
 .settings/
 target
 \.git\info\
-application.properties
+src/main/resources/application.properties
