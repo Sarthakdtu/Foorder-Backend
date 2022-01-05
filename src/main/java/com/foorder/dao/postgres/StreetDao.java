@@ -1,6 +1,6 @@
 package com.foorder.dao.postgres;
 
-import com.foorder.model.Street;
+import com.foorder.model.location.Street;
 
 import java.util.List;
 

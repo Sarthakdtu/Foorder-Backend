@@ -1,7 +1,5 @@
 package com.foorder.controller.v1.api;
 
-import com.foorder.model.Menu;
-import com.foorder.model.MenuItem;
 import com.foorder.model.Restaurant;
 import com.foorder.service.RestaurantService;
 import com.foorder.utils.LoggerService;

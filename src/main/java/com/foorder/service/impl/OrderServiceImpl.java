@@ -3,7 +3,11 @@ package com.foorder.service.impl;
 import com.foorder.dao.postgres.DeliveredOrderDao;
 import com.foorder.dao.postgres.PendingOrderDao;
 import com.foorder.exceptions.*;
+import com.foorder.events.OrderPlacedEvent;
 import com.foorder.model.*;
+import com.foorder.model.menu.MenuItem;
+import com.foorder.model.notification.OrderPlacedNotification;
+import com.foorder.model.order.*;
 import com.foorder.service.*;
 import com.foorder.utils.LoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderListService orderListService;
+
+    @Autowired
+    OrderPlacedEvent orderPlacedEvent;
 
     private void validateCity(String userCity, String restaurantCity) throws DifferentCityException {
         if(!userCity.equals(restaurantCity)){
@@ -66,14 +73,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String validateOrder(Order order, List<OrderItem> items, HashMap<String, Integer> idTtmMap) throws Exception {
+    public HashMap<String, Object> validateOrder(Order order, List<OrderItem> items, HashMap<String, Integer> idTtmMap) throws Exception {
         UserProfile userProfile = userProfileService.getUserProfileById(order.getUsername());
         Restaurant restaurant = restaurantService.getRestaurantById(order.getRestaurantId());
         validateCity(userProfile.getCityName(), restaurant.getCityName());
         validateNumberUniqueItems(items);
         validateItemExistence(items, order.getRestaurantId(), idTtmMap);
         validateItemQuantity(items);
-        return restaurant.getCityName();
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("restaurant", restaurant);
+        result.put("userProfile", userProfile);
+        return result;
+    }
+
+    private List<OrderItemWithName> createOrderItemWithNameList(List<OrderItem> orderItems, List<MenuItem> menuItems){
+        HashMap<String, String> idNameMap = this.getMenuItemIdNamemMap(menuItems);
+        List<OrderItemWithName> orderItemWithNameList = new ArrayList<>();
+        for(OrderItem item : orderItems){
+            OrderItemWithName orderItemWithName = new OrderItemWithName(item, idNameMap.get(item.getId()));
+            orderItemWithNameList.add(orderItemWithName);
+        }
+        return orderItemWithNameList;
     }
 
     @Override
@@ -84,21 +104,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderWithName getOrderDetailsById(String id) {
         Order order = pendingOrderDao.getOrderById(id);
-
         String restaurantName = restaurantService.getRestaurantById(order.getRestaurantId()).getName();
         List<MenuItem> menuItems = menuService.getMenuItems(order.getRestaurantId());
-        HashMap<String, String> idNameMap = this.getMenuItemIdNamemMap(menuItems);
         LoggerService.info("Menu for restaurantId " + order.getRestaurantId() + " fetched");
 
         OrderList orderList = orderListService.getOrderListById(order.getId());
         List<OrderItem> orderItems = orderList.getItems();
         LoggerService.info("Got order items for id " + order.getId());
-
-        List<OrderItemWithName> orderItemWithNameList = new ArrayList<>();
-        for(OrderItem item : orderItems){
-            OrderItemWithName orderItemWithName = new OrderItemWithName(item, idNameMap.get(item.getId()));
-            orderItemWithNameList.add(orderItemWithName);
-        }
+        List<OrderItemWithName> orderItemWithNameList = this.createOrderItemWithNameList(orderItems, menuItems);
         return new OrderWithName(order, restaurantName, orderItemWithNameList);
     }
 
@@ -156,7 +169,7 @@ public class OrderServiceImpl implements OrderService {
         HashMap<String, Integer> idTtmMap = this.getMenuItemIdTtmMap(menuItems);
         HashMap<String, Double> idPriceMap = this.getMenuItemIdPricemMap(menuItems);
 
-        String cityName = this.validateOrder(order, items, idTtmMap);
+        HashMap<String, Object> result = this.validateOrder(order, items, idTtmMap);
         LoggerService.info("Validation successful");
 
         LocalDateTime currentTime = LocalDateTime.now();
@@ -172,7 +185,15 @@ public class OrderServiceImpl implements OrderService {
 
         pendingOrderDao.insertPendingOrder(order);
         LoggerService.info("Order Placed : " + order.toString());
-
+        UserProfile userProfile = (UserProfile) result.get("userProfile");
+        Restaurant restaurant = (Restaurant) result.get("restaurant");
+        List<OrderItemWithName> orderItemWithNameList = this.createOrderItemWithNameList(items, menuItems);
+        OrderPlacedNotification orderPlacedNotification = new OrderPlacedNotification(
+                                                            order.getId(),
+                                                            userProfile.getUsername(),
+                                                            restaurant.getName(),
+                                                            orderItemWithNameList);
+        orderPlacedEvent.produce(orderPlacedNotification.toJson());
         //TODO: save order in user_profile history
         //TODO: save order in restaurant history
     }

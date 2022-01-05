@@ -1,6 +1,7 @@
 package com.foorder.controller.v1.api;
 
-import com.foorder.model.City;
+import com.foorder.kafkaUtils.KafkaConfig;
+import com.foorder.model.location.City;
 import com.foorder.service.CityService;
 import com.foorder.utils.LoggerService;
 import org.json.JSONException;

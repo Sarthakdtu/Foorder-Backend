@@ -1,7 +1,9 @@
 package com.foorder.service;
 
-import com.foorder.exceptions.MenuDoestNotExistException;
-import com.foorder.model.*;
+import com.foorder.model.order.Order;
+import com.foorder.model.order.OrderItem;
+import com.foorder.model.order.OrderWithName;
+import com.foorder.model.order.PendingOrder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +20,7 @@ public interface OrderService {
     List<Order> getAllDeliveredOrdersByRestaurantId(String restaurantId);
     List<Order> getOrderHistoryByUser(String username);
     List<Order> getOrderHistoryByRestaurant(String restaurantId);
-    String validateOrder(Order order, List<OrderItem> items, HashMap<String, Integer> idTtmMap) throws Exception;
+    HashMap<String, Object> validateOrder(Order order, List<OrderItem> items, HashMap<String, Integer> idTtmMap) throws Exception;
     List<Order> getAllPendingOrderByRestaurantId(String restaurantId);
     List<Order> getAllPendingOrderByUsername(String username);
 }

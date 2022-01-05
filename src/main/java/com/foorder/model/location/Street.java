@@ -1,4 +1,4 @@
-package com.foorder.model;
+package com.foorder.model.location;
 
 import lombok.Getter;
 

@@ -1,9 +1,9 @@
 package com.foorder.service.impl;
 
 import com.foorder.dao.postgres.RestaurantDao;
-import com.foorder.model.Menu;
+import com.foorder.model.menu.Menu;
 import com.foorder.model.Restaurant;
-import com.foorder.model.Street;
+import com.foorder.model.location.Street;
 import com.foorder.service.MenuService;
 import com.foorder.service.RestaurantService;
 import com.foorder.service.StreetService;

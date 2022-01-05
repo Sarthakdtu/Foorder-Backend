@@ -1,6 +1,6 @@
 package com.foorder.dao.mongodb;
 
-import com.foorder.model.OrderList;
+import com.foorder.model.order.OrderList;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

@@ -1,8 +1,9 @@
 package com.foorder.controller.v1.api;
 
 import com.foorder.exceptions.OrderItemInvalidException;
-import com.foorder.model.*;
-import com.foorder.model.Order;
+import com.foorder.model.order.Order;
+import com.foorder.model.order.OrderItem;
+import com.foorder.model.order.PendingOrder;
 import com.foorder.service.OrderService;
 import com.foorder.utils.LoggerService;
 import com.foorder.utils.RandomStrings;

@@ -1,7 +1,7 @@
 package com.foorder.service.impl;
 
 import com.foorder.dao.postgres.CityDao;
-import com.foorder.model.City;
+import com.foorder.model.location.City;
 import com.foorder.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.foorder.model;
+package com.foorder.model.location;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

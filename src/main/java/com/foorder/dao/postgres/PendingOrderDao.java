@@ -1,7 +1,7 @@
 package com.foorder.dao.postgres;
 
-import com.foorder.model.Order;
-import com.foorder.model.PendingOrder;
+import com.foorder.model.order.Order;
+import com.foorder.model.order.PendingOrder;
 
 import java.util.List;
 

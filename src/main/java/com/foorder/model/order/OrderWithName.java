@@ -1,12 +1,13 @@
-package com.foorder.model;
+package com.foorder.model.order;
 
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class OrderWithName extends Order{
+public class OrderWithName extends Order {
 
     @Getter @Setter
     private String restaurantName;
@@ -27,5 +28,9 @@ public class OrderWithName extends Order{
         super(order);
         this.restaurantName = restaurantName;
         this.orderItemWithNameList = orderItemWithNameList;
+    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
     }
 }

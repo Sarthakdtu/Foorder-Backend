@@ -1,7 +1,7 @@
 package com.foorder.service.impl;
 
 import com.foorder.dao.mongodb.OrderListRepository;
-import com.foorder.model.OrderList;
+import com.foorder.model.order.OrderList;
 import com.foorder.service.OrderListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

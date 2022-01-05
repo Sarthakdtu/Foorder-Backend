@@ -1,5 +1,6 @@
-package com.foorder.model;
+package com.foorder.model.order;
 
+import com.foorder.model.order.OrderItem;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;

@@ -1,6 +1,6 @@
 package com.foorder.service;
 
-import com.foorder.model.OrderList;
+import com.foorder.model.order.OrderList;
 
 public interface OrderListService {
     public OrderList getOrderListById(String orderId);

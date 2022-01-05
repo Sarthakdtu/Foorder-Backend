@@ -2,7 +2,7 @@ package com.foorder.controller.v1.api;
 
 import com.foorder.exceptions.DuplicateMenuItemException;
 import com.foorder.exceptions.MenuItemsInvalidException;
-import com.foorder.model.MenuItem;
+import com.foorder.model.menu.MenuItem;
 import com.foorder.service.MenuService;
 import com.foorder.utils.LoggerService;
 import com.foorder.utils.RandomStrings;

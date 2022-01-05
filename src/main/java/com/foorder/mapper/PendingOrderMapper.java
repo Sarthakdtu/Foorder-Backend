@@ -1,6 +1,6 @@
 package com.foorder.mapper;
 
-import com.foorder.model.PendingOrder;
+import com.foorder.model.order.PendingOrder;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

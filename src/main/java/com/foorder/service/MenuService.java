@@ -1,7 +1,7 @@
 package com.foorder.service;
 
-import com.foorder.model.Menu;
-import com.foorder.model.MenuItem;
+import com.foorder.model.menu.Menu;
+import com.foorder.model.menu.MenuItem;
 
 import java.util.List;
 

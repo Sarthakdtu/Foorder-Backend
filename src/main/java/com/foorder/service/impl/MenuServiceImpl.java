@@ -1,8 +1,8 @@
 package com.foorder.service.impl;
 
 import com.foorder.dao.mongodb.MenuRepository;
-import com.foorder.model.Menu;
-import com.foorder.model.MenuItem;
+import com.foorder.model.menu.Menu;
+import com.foorder.model.menu.MenuItem;
 import com.foorder.service.MenuService;
 import com.foorder.utils.LoggerService;
 import org.springframework.beans.factory.annotation.Autowired;

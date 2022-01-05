@@ -1,4 +1,4 @@
-package com.foorder.model;
+package com.foorder.model.menu;
 
 import lombok.Getter;
 import lombok.Setter;

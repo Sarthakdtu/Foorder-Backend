@@ -1,9 +1,10 @@
-package com.foorder.model;
+package com.foorder.model.order;
 
+import com.foorder.model.order.OrderItem;
 import lombok.Getter;
 import lombok.Setter;
 
-public class OrderItemWithName extends OrderItem{
+public class OrderItemWithName extends OrderItem {
 
     @Getter @Setter private String name;
 

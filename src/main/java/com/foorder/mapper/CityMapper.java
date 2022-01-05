@@ -1,6 +1,6 @@
 package com.foorder.mapper;
 
-import com.foorder.model.City;
+import com.foorder.model.location.City;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

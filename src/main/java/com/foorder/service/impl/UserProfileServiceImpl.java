@@ -1,10 +1,8 @@
 package com.foorder.service.impl;
 
 import com.foorder.dao.postgres.UserProfileDao;
-import com.foorder.model.City;
-import com.foorder.model.Street;
+import com.foorder.model.location.Street;
 import com.foorder.model.UserProfile;
-import com.foorder.service.CityService;
 import com.foorder.service.StreetService;
 import com.foorder.service.UserProfileService;
 import com.foorder.utils.RandomStrings;

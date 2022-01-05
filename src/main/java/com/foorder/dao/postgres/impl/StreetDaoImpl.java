@@ -2,7 +2,7 @@ package com.foorder.dao.postgres.impl;
 
 import com.foorder.dao.postgres.StreetDao;
 import com.foorder.mapper.StreetMapper;
-import com.foorder.model.Street;
+import com.foorder.model.location.Street;
 import com.foorder.utils.LoggerService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;

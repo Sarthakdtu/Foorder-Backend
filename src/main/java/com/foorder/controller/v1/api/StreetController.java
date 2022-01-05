@@ -1,6 +1,6 @@
 package com.foorder.controller.v1.api;
 
-import com.foorder.model.Street;
+import com.foorder.model.location.Street;
 import com.foorder.service.StreetService;
 import com.foorder.utils.LoggerService;
 import org.json.JSONException;

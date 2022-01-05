@@ -5,3 +5,4 @@
 target
 \.git\info\
 src/main/resources/application.properties
+src/main/resources/kafka.properties

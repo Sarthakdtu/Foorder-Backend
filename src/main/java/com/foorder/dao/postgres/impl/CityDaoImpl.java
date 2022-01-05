@@ -2,7 +2,7 @@ package com.foorder.dao.postgres.impl;
 
 import com.foorder.dao.postgres.CityDao;
 import com.foorder.mapper.CityMapper;
-import com.foorder.model.City;
+import com.foorder.model.location.City;
 import com.foorder.utils.LoggerService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;

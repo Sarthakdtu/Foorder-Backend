@@ -1,7 +1,7 @@
 package com.foorder.controller.v1.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.foorder.model.City;
+import com.foorder.model.location.City;
 import com.foorder.service.CityService;
 import org.junit.jupiter.api.Test;
 

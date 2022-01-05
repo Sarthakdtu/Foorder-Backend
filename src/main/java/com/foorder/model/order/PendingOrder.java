@@ -1,5 +1,6 @@
-package com.foorder.model;
+package com.foorder.model.order;
 
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,5 +39,9 @@ public class PendingOrder extends Order {
                 ", price='" + price + '\'' +
                 ", pickUpTime=" + pickUpTime +
                 '}';
+    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
     }
 }
