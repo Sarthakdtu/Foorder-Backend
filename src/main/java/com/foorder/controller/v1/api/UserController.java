@@ -82,7 +82,9 @@ public class UserController {
             String cityName = req.get("cityName");
             String streetName = req.get("streetName");
             String houseNumber = req.get("houseNumber");
+            String mobileNumber = req.getOrDefault("mobileNumber", null);
             UserProfile userProfile = new UserProfile(username, houseNumber, cityName, streetName);
+            userProfile.setMobileNumber(mobileNumber);
             userProfileService.insertUserProfile(userProfile);
             insert = true;
         }

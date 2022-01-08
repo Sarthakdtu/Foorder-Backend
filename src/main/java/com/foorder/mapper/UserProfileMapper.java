@@ -14,6 +14,7 @@ public class UserProfileMapper implements RowMapper {
         userProfile.setHouseNumber(resultSet.getString("houseNumber"));
         userProfile.setCityName(resultSet.getString("cityName"));
         userProfile.setStreetName(resultSet.getString("streetName"));
+        userProfile.setMobileNumber(resultSet.getString("mobileNumber"));
         return userProfile;
     }
 }

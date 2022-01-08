@@ -55,14 +55,15 @@ public class UserProfileDaoImpl implements UserProfileDao {
 
     @Override
     public void insertUserProfile(UserProfile userProfile) {
-        final String query = "INSERT INTO " + Table.USER_PROFILE.name +" (username, houseNumber, cityName, streetName) " +
-                "VALUES(:username, :houseNumber, :cityName, :streetName)";
+        final String query = "INSERT INTO " + Table.USER_PROFILE.name +" (username, houseNumber, cityName, streetName, mobileNumber) " +
+                "VALUES(:username, :houseNumber, :cityName, :streetName, :mobileNumber)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("username", userProfile.getUsername())
                 .addValue("houseNumber", userProfile.getHouseNumber())
                 .addValue("streetName", userProfile.getStreetName())
-                .addValue("cityName", userProfile.getCityName());
+                .addValue("cityName", userProfile.getCityName())
+                .addValue("mobileNumber", userProfile.getMobileNumber());
         LoggerService.debug(query);
         template.update(query, param, keyHolder);
     }

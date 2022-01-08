@@ -12,6 +12,8 @@ public class UserProfile {
 
     @Getter @Setter private String streetName;
 
+    @Getter @Setter private String mobileNumber;
+
     public UserProfile(String username){
         this.username = username;
     }
@@ -21,5 +23,6 @@ public class UserProfile {
         this.houseNumber = houseNumber;
         this.cityName = cityName;
         this.streetName = streetName;
+        this.mobileNumber = null;
     }
 }

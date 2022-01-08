@@ -193,6 +193,7 @@ public class OrderServiceImpl implements OrderService {
                                                             userProfile.getUsername(),
                                                             restaurant.getName(),
                                                             orderItemWithNameList);
+        orderPlacedNotification.setMobileNumber(userProfile.getMobileNumber());
         orderPlacedEvent.produce(orderPlacedNotification.toJson());
         //TODO: save order in user_profile history
         //TODO: save order in restaurant history
