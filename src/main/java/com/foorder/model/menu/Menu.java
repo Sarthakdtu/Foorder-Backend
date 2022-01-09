@@ -25,6 +25,14 @@ public class Menu {
         this.items = null;
     }
 
+    private String printMenuItems(){
+        StringBuilder sb = new StringBuilder();
+        for (MenuItem item:this.items) {
+            sb.append(item.toString());
+        }
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return "Menu{" +

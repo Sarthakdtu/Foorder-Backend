@@ -10,7 +10,6 @@ public class MenuItem {
     @Getter @Setter private Integer timeToMake;
 
     public MenuItem(){
-
     }
 
     public MenuItem(String id, String name, Double price, Integer timeToMake) {
@@ -18,5 +17,15 @@ public class MenuItem {
         this.price = price;
         this.timeToMake = timeToMake;
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", timeToMake=" + timeToMake +
+                '}';
     }
 }
