@@ -2,6 +2,7 @@ package com.foorder.service.impl;
 
 import com.foorder.dao.postgres.DeliveredOrderDao;
 import com.foorder.dao.postgres.PendingOrderDao;
+import com.foorder.events.Event;
 import com.foorder.exceptions.*;
 import com.foorder.events.OrderPlacedEvent;
 import com.foorder.model.*;
@@ -38,9 +39,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderListService orderListService;
-
-    @Autowired
-    OrderPlacedEvent orderPlacedEvent;
 
     private void validateCity(String userCity, String restaurantCity) throws DifferentCityException {
         if(!userCity.equals(restaurantCity)){
@@ -194,7 +192,9 @@ public class OrderServiceImpl implements OrderService {
                                                             restaurant.getName(),
                                                             orderItemWithNameList);
         orderPlacedNotification.setMobileNumber(userProfile.getMobileNumber());
-        orderPlacedEvent.produce(orderPlacedNotification.toJson());
+        Event orderPlacedEvent = new OrderPlacedEvent();
+        orderPlacedEvent.setMessage(orderPlacedNotification.toJson());
+        orderPlacedEvent.produce();
         //TODO: save order in user_profile history
         //TODO: save order in restaurant history
     }

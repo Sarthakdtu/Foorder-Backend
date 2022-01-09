@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderPlacedEvent extends Event{
 
-    protected OrderPlacedEvent() {
+    public OrderPlacedEvent() {
         super(EventType.ORDER_PLACED);
     }
 }
