@@ -55,7 +55,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public void deleteUserProfile(String id) {
-        userProfileDao.deleteUserProfile(id);
+    public void deleteUserProfile(String username) {
+        userProfileDao.deleteUserProfile(username);
     }
 }

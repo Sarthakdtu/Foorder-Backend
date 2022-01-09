@@ -17,7 +17,7 @@ CREATE TABLE USER_PROFILE(
     houseNumber VARCHAR(16) NOT NULL,
     cityName VARCHAR(16) NOT NULL,
     streetName VARCHAR(26) NOT NULL,
-    mobileNumber VARCHAR(10) DEFAULT NULL,
+    mobileNumber VARCHAR(15) DEFAULT NULL,
     CONSTRAINT fk_cityName
         FOREIGN KEY(cityName)
             REFERENCES CITY(name)

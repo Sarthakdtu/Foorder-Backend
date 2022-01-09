@@ -95,6 +95,19 @@ public class UserController {
         return insert;
     }
 
+    @PutMapping("/update")
+    public boolean updateUserProfile(@RequestBody UserProfile userProfile){
+        boolean update = false;
+        try{
+            userProfileService.updateUserProfile(userProfile);
+            update = true;
+        }
+        catch (Exception e){
+            LoggerService.error(e.getMessage());
+        }
+        return update;
+    }
+
     @DeleteMapping("/delete")
     public boolean deleteUserProfile(@RequestBody HashMap<String, String> req){
         String username = req.get("username");

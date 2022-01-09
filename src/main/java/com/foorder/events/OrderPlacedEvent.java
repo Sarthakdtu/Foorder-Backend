@@ -1,14 +1,12 @@
 package com.foorder.events;
 
-import com.foorder.kafkaUtils.KafkaClient;
-import org.json.JSONException;
+import com.foorder.constants.EventType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderPlacedEvent {
+public class OrderPlacedEvent extends Event{
 
-    public void produce(String msg) throws JSONException {
-        KafkaClient kafkaClient = KafkaClient.getInstance();
-        kafkaClient.produce(msg);
+    protected OrderPlacedEvent() {
+        super(EventType.ORDER_PLACED);
     }
 }
